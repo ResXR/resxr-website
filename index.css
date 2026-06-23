@@ -360,12 +360,10 @@ h2 {
 .supported-by-logos img {
     height: 48px;
     width: auto;
-    filter: grayscale(100%) opacity(30%);
     transition: all 0.5s ease;
 }
 
 .supported-by-logos img:hover {
-    filter: grayscale(0%) opacity(100%);
     transform: scale(1.1);
 }
 
