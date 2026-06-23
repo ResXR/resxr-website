@@ -1,5 +1,9 @@
-# Dependencies
-unity-template-docs/node_modules/
-
 # Build output
-unity-template-docs/build/
+ResXR-standalone.html
+
+# Local tooling
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db

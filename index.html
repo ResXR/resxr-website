@@ -1,380 +1,251 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ResXR - Research with XR</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { 
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; 
-      margin: 0; 
-      padding: 0;
-      line-height: 1.6; 
-      color: #222;
-      background: #fafafa;
-    }
-    .wrap { 
-      max-width: 1200px; 
-      margin: 0 auto; 
-      padding: 64px 20px;
-    }
-    
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      margin-bottom: 80px;
-      padding: 40px 0;
-    }
-    h1 { 
-      margin: 0 0 16px; 
-      font-size: 56px; 
-      font-weight: 700;
-      color: #1a1a1a;
-    }
-    .tagline {
-      font-size: 22px;
-      color: #444;
-      margin: 0 0 24px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .value-prop {
-      font-size: 18px;
-      color: #666;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
-    /* About Section */
-    .about {
-      margin-bottom: 80px;
-    }
-    h2 {
-      font-size: 36px;
-      margin: 0 0 24px;
-      color: #1a1a1a;
-    }
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin-bottom: 32px;
-    }
-    @media (max-width: 768px) {
-      .about-content {
-        grid-template-columns: 1fr;
-      }
-    }
-    .about-card {
-      padding: 24px;
-      background: white;
-      border-radius: 12px;
-      border: 1px solid #e6e6e6;
-    }
-    .about-card h3 {
-      margin: 0 0 12px;
-      font-size: 20px;
-      color: #1a1a1a;
-    }
-    .about-card p {
-      margin: 0;
-      color: #444;
-      font-size: 16px;
-    }
-    
-    /* Architecture Section */
-    .architecture {
-      margin-bottom: 80px;
-    }
-    .stages-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 24px;
-      margin: 32px auto 0;
-      max-width: 1200px;
-      justify-content: center;
-      justify-items: center;
-    }
-    @media (max-width: 768px) {
-      .stages-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    .stage-card {
-      padding: 28px;
-      background: white;
-      border-radius: 12px;
-      border: 2px solid #e6e6e6;
-      transition: all 0.3s ease;
-      position: relative;
-      width: 100%;
-      max-width: 560px;
-    }
-    .stage-card.available {
-      border-color: #2563eb;
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    }
-    .stage-card.coming-soon {
-      opacity: 0.7;
-      background: #f9fafb;
-    }
-    .stage-number {
-      font-size: 14px;
-      font-weight: 600;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-    }
-    .stage-card.available .stage-number {
-      color: #2563eb;
-    }
-    .stage-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 0 0 12px;
-      color: #1a1a1a;
-    }
-    .stage-description {
-      font-size: 16px;
-      color: #444;
-      margin: 0 0 20px;
-      line-height: 1.6;
-    }
-    .stage-features {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 20px;
-    }
-    .stage-features li {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 8px;
-      padding-left: 20px;
-      position: relative;
-    }
-    .stage-features li:before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: #2563eb;
-      font-weight: bold;
-    }
-    .stage-card.coming-soon .stage-features li:before {
-      color: #999;
-    }
-    .demo-experiments {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid #e6e6e6;
-    }
-    .demo-experiments-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #2563eb;
-      margin-bottom: 8px;
-    }
-    .stage-card.coming-soon .demo-experiments-title {
-      color: #999;
-    }
-    .status-badge {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 16px;
-    }
-    .status-available {
-      background: #10b981;
-      color: white;
-    }
-    .status-coming-soon {
-      background: #e5e7eb;
-      color: #6b7280;
-    }
-    .github-button {
-      display: inline-block;
-      padding: 12px 24px;
-      background: #2563eb;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 16px;
-      transition: all 0.2s ease;
-      margin-top: 8px;
-    }
-    .github-button:hover {
-      background: #1d4ed8;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-    }
-    .stage-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 8px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ResXR: An open-source toolkit for conducting behavioral XR experiments on Meta standalone headsets, producing BIDS-compliant data.">
+    <title>ResXR | Open-Source XR Research Toolkit</title>
 
-    /* Supported by */
-    .supported-by {
-      margin-top: 72px;
-      padding-top: 28px;
-      border-top: 1px solid #e6e6e6;
-      text-align: center;
-    }
-    .supported-by-label {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #6b7280;
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-    .supported-by-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 22px;
-    }
-    .supported-by-logos img {
-      height: var(--logo-h, 44px);
-      width: auto;
-      max-width: min(220px, 42vw);
-      object-fit: contain;
-    }
-    
-    /* Footer */
-    footer {
-      margin-top: 80px;
-      padding-top: 32px;
-      border-top: 1px solid #e6e6e6;
-      text-align: center;
-    }
-    .muted { 
-      color: #666; 
-      font-size: 14px; 
-    }
-    a { 
-      color: #2563eb;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Crect%20width%3D%27100%27%20height%3D%27100%27%20rx%3D%2724%27%20fill%3D%27%232563EB%27%2F%3E%3Ctext%20x%3D%2750%27%20y%3D%2772%27%20font-family%3D%27Inter%2CSegoe%20UI%2CArial%2Csans-serif%27%20font-size%3D%2762%27%20font-weight%3D%27700%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3ER%3C%2Ftext%3E%3C%2Fsvg%3E">
+    <meta name="theme-color" content="#2563EB">
+    <link rel="canonical" href="https://resxr.org/">
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ResXR">
+    <meta property="og:title" content="ResXR | Open-Source XR Research Toolkit">
+    <meta property="og:description" content="An open-source, end-to-end toolkit for behavioral XR experiments on Meta Quest headsets, producing Motion-BIDS-compliant data.">
+    <meta property="og:url" content="https://resxr.org/">
+    <meta property="og:image" content="https://resxr.org/assets/og-cover.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ResXR | Open-Source XR Research Toolkit">
+    <meta name="twitter:description" content="An open-source, end-to-end toolkit for behavioral XR experiments on Meta Quest headsets, producing Motion-BIDS-compliant data.">
+    <meta name="twitter:image" content="https://resxr.org/assets/og-cover.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="wrap">
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1>ResXR</h1>
-      <p class="tagline">An open-source, end-to-end toolkit for conducting behavioral XR experiments on Meta standalone head-mounted displays</p>
-      <p class="value-prop">Addressing technical barriers and data standardization in XR research</p>
-    </section>
+    <div class="refraction-background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="logo">ResXR</div>
+    </nav>
 
-    <!-- About Section -->
-    <section class="about">
-      <h2>About ResXR</h2>
-      <div class="about-content">
-        <div class="about-card">
-          <h3>The Challenge</h3>
-          <p>Widespread adoption of XR in behavioral research is hindered by high technical barriers and the absence of standardized data formats. Creating immersive experiments demands specialized programming skills, and researchers lack accessible templates designed for scientific applications.</p>
-        </div>
-        <div class="about-card">
-          <h3>The Solution</h3>
-          <p>ResXR provides a Unity-based experiment template for multimodal data capture alongside a Python processing pipeline that automates validation, preprocessing, and quality reporting, inspired by established neuroimaging tools like fMRIPrep.</p>
-        </div>
-      </div>
-      <div class="about-content">
-        <div class="about-card">
-          <h3>Target Platform</h3>
-          <p>Meta standalone headsets (Quest 2, Quest Pro, Quest 3)</p>
-        </div>
-        <div class="about-card">
-          <h3>Output Format</h3>
-          <p>Motion-BIDS compatible data for reproducible research</p>
-        </div>
-      </div>
-    </section>
+    <main class="wrap">
+        <section class="hero slide-up">
+            <div class="hero-badge">Standardizing XR Behavioral Research</div>
+            <h1>The Open Toolkit for <span class="text-accent">XR Research.</span></h1>
+            <p class="tagline">An open-source, end-to-end toolkit for Meta Quest headsets. Record high-frequency multimodal data, automate quality validation, and export to BIDS format.</p>
+            <div class="hero-actions">
+                <a href="https://docs.resxr.org" class="btn btn-primary">Explore Documentation</a>
+                <a href="https://github.com/ResXR" class="btn btn-secondary">View on GitHub</a>
+            </div>
+        </section>
 
-    <!-- Architecture/Stages Section -->
-    <section class="architecture">
-      <h2>ResXR Architecture</h2>
-      <p style="font-size: 18px; color: #666; margin-bottom: 32px;">ResXR comprises a Unity-based base template and a Python-based data pipeline</p>
-      
-      <div class="stages-grid">
-        <!-- Stage 1: Base Template -->
-        <div class="stage-card available">
-          <span class="stage-number">Stage 1</span>
-          <h3 class="stage-title">Base Template</h3>
-          <span class="status-badge status-available">Available</span>
-          <p class="stage-description">Unity-based experiment template for multimodal data capture</p>
-          <ul class="stage-features">
-            <li>Head, hand, eye, and face tracking</li>
-            <li>ResXRPlayer, ResXREyeTracker, ResXRDataManager components</li>
-            <li>Automatic trial logging and synchronized data collection</li>
-          </ul>
-          <div class="demo-experiments">
-            <div class="demo-experiments-title">Demo Experiments Included:</div>
-            <ul class="stage-features">
-              <li>Binary Choice (2AFC paradigm with paired visual stimuli)</li>
-              <li>Maze Navigation (spatial wayfinding task with trajectory capture)</li>
-              <li>Museum Viewing (free-exploration gallery for eye-tracking studies)</li>
-            </ul>
-          </div>
-          <div class="stage-buttons">
-            <a href="https://github.com/ResXR/resxr-unity-research-template" class="github-button" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
-            <a href="/unity-template-docs/" class="github-button docs-button">Documentation →</a>
-          </div>
-        </div>
+        <section class="about fade-in">
+            <h2>Why ResXR?</h2>
+            <div class="grid-2">
+                <div class="glass-card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Addressing Technical Barriers</h3>
+                    <p>Creating immersive experiments demands specialized programming skills. ResXR provides an accessible Unity template designed for scientific applications, ensuring precision without building from scratch.</p>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">📊</div>
+                    <h3>Data Standardization</h3>
+                    <p>The lack of standard formats limits reproducibility. ResXR automates the conversion of complex tracking data into Motion-BIDS compliant datasets, ready for immediate analysis and sharing.</p>
+                </div>
+            </div>
+        </section>
 
-        <!-- Stage 2: Data Pipeline -->
-        <div class="stage-card available">
-          <span class="stage-number">Stage 2</span>
-          <h3 class="stage-title">Data Pipeline</h3>
-          <span class="status-badge status-available">Available</span>
-          <p class="stage-description">Quality checks, preprocessing, reports, and export</p>
-          <ul class="stage-features">
-            <li>Configurable quality checks (e.g., tracking loss detection)</li>
-            <li>Quality flags generation</li>
-            <li>Automated validation pipeline</li>
-            <li>Excludes flagged segments</li>
-            <li>Computes derived measures</li>
-            <li>Automated preprocessing workflow</li>
-            <li>Comprehensive HTML reports with diagnostic plots</li>
-            <li>Analysis-ready export</li>
-            <li>Visual quality assurance reports</li>
-          </ul>
-          <div class="stage-buttons">
-            <a href="https://github.com/ResXR/resxr-python-pipeline/" class="github-button" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
-          </div>
-        </div>
-      </div>
-    </section>
+        <section class="architecture fade-in">
+            <h2 class="text-center">Toolkit Architecture</h2>
+            <p class="section-subtitle">A powerful combination of a Unity recording template and a Python processing pipeline.</p>
+            
+            <div class="grid-2">
+                <!-- Unity Card -->
+                <div class="glass-card feature-card">
+                    <div class="badge badge-unity">Stage 1: Unity Base Template</div>
+                    <h3 class="feature-title">Standalone Data Capture</h3>
+                    <p>A Unity 6 template for behavioral experiments running on Meta Quest 2/3/Pro.</p>
+                    <ul class="feature-list">
+                        <li><strong>100 Hz Recording:</strong> Head, hands, eyes, face, and body tracking in Unity's <code>FixedUpdate</code>.</li>
+                        <li><strong>Core Components:</strong> <code>ResXRPlayer</code> and <code>ResXRDataManager</code> for synchronized collection.</li>
+                        <li><strong>Built-in Paradigms:</strong> Demo experiments for Binary Choice, Maze Navigation, and Museum Viewing.</li>
+                    </ul>
+                    <div class="card-actions">
+                        <a href="https://github.com/ResXR/resxr-unity-research-template" class="btn btn-outline" target="_blank" rel="noopener">Unity Template Repo</a>
+                    </div>
+                </div>
 
-    <!-- Supported by -->
-    <section class="supported-by" aria-label="Supported by">
-      <div class="supported-by-label">Supported by</div>
-      <div class="supported-by-logos">
-        <img src="Logos/LOGO-ERC.png" alt="ERC" loading="lazy" decoding="async" style="--logo-h: 56px; margin-right: 13px;" />
-        <img src="Logos/Miverva%20center%20for%20mixed%20realities%20logo.png" alt="Minerva Center for Mixed Realities" loading="lazy" decoding="async" style="--logo-h: 42px;" />
-        <img src="Logos/mpg_logo_final_minerva_stiftung_rgb_mpg-green.png" alt="Minerva Stiftung (MPG)" loading="lazy" decoding="async" style="--logo-h: 54px;" />
-        <img src="Logos/samueli.svg" alt="Samueli" loading="lazy" decoding="async" style="--logo-h: 32px;" />
-      </div>
-    </section>
+                <!-- Python Card -->
+                <div class="glass-card feature-card">
+                    <div class="badge badge-python">Stage 2: Python Data Pipeline</div>
+                    <h3 class="feature-title">Processing & Validation</h3>
+                    <p>Converts raw tracking data into Motion-BIDS compliant datasets with visual quality reports.</p>
+                    <ul class="feature-list">
+                        <li><strong>BIDS Compliance:</strong> Generates <code>motion.tsv</code>, <code>events.tsv</code>, and LATENCY channels.</li>
+                        <li><strong>Quality Validation:</strong> Detects tracking loss, sampling irregularities, and tracks eye closures.</li>
+                        <li><strong>Interactive Reports:</strong> HTML visualizations of flag times mapped to global <code>timeSinceStartup</code>.</li>
+                    </ul>
+                    <div class="card-actions">
+                        <a href="https://github.com/ResXR/resxr-python-pipeline" class="btn btn-outline" target="_blank" rel="noopener">Python Pipeline Repo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Footer -->
+        <!-- Developer & BIDS Section -->
+        <section class="dev-bids slide-up">
+            <div class="section-subtitle">Integration</div>
+            <h2>Seamless Workflow</h2>
+            <div class="grid-2">
+
+                <!-- BIDS Tree Card -->
+                <div class="glass-card dev-card bids-card">
+                    <h3>Standardized Output</h3>
+                    <p>Your raw recordings are converted into a strictly compliant Motion-BIDS dataset &mdash; one tracking system per file, with sourcedata and derivatives preserved alongside an interactive HTML quality report.</p>
+
+                    <div class="bids-window">
+                        <ul class="file-tree">
+                            <li class="folder root-folder">output/
+                                <ul>
+                                    <li class="file">dataset_description.json</li>
+                                    <li class="file">participants.tsv</li>
+                                    <li class="folder">sub-01/
+                                        <ul>
+                                            <li class="folder">ses-01/
+                                                <ul>
+                                                    <li class="file highlight-file">2026.06.10_18-22_report.html</li>
+                                                    <li class="file">sub-01_ses-01_scans.tsv</li>
+                                                    <li class="file">sub-01_ses-01_task-VRtracking_events.tsv</li>
+                                                    <li class="folder">motion/
+                                                        <ul>
+                                                            <li class="file">sub-01_ses-01_task-VRtracking_tracksys-Head_motion.tsv</li>
+                                                            <li class="file">sub-01_ses-01_task-VRtracking_tracksys-Eyes_motion.tsv</li>
+                                                            <li class="file">sub-01_ses-01_task-VRtracking_tracksys-Hands_motion.tsv</li>
+                                                            <li class="file">sub-01_ses-01_task-VRtracking_tracksys-Face_motion.tsv</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="folder">sourcedata/</li>
+                                    <li class="folder">derivatives/resxr/</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Image Gallery Section -->
+        <section class="gallery slide-up">
+            <div class="section-subtitle">Visuals</div>
+            <h2>Ready-to-use Paradigms</h2>
+            <div class="gallery-grid">
+                <div class="glass-card gallery-card">
+                    <img src="assets/images/museum.webp" alt="Museum Paradigm" class="gallery-img">
+                    <div class="gallery-info">
+                        <h4>Museum Paradigm</h4>
+                        <p>Free-roaming environmental navigation.</p>
+                    </div>
+                </div>
+                <div class="glass-card gallery-card">
+                    <img src="assets/images/maze.webp" alt="Maze Paradigm" class="gallery-img">
+                    <div class="gallery-info">
+                        <h4>Maze Navigation</h4>
+                        <p>Spatial memory and pathfinding tasks.</p>
+                    </div>
+                </div>
+                <div class="glass-card gallery-card">
+                    <img src="assets/images/binary_choice.webp" alt="Binary Choice" class="gallery-img">
+                    <div class="gallery-info">
+                        <h4>Binary Choice</h4>
+                        <p>Controlled forced-choice psychological tasks.</p>
+                    </div>
+                </div>
+                <div class="glass-card gallery-card">
+                    <img src="assets/images/monitor.webp" alt="Live Monitor" class="gallery-img">
+                    <div class="gallery-info">
+                        <h4>Live Monitor</h4>
+                        <p>Real-time telemetry and subject tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preprint / Publication Section -->
+        <section class="preprint slide-up">
+            <div class="glass-card preprint-card">
+                <div class="badge badge-preprint">Preprint</div>
+                <h2 class="preprint-title">Read the Preprint</h2>
+                <p class="preprint-status">
+                    <span class="status-dot"></span>
+                    In preparation for publication
+                </p>
+                <p class="preprint-desc">
+                    The ResXR toolkit is described in detail in our preprint, which is currently in preparation
+                    for publication. Cite or reference our work using the DOI below.
+                </p>
+                <div class="doi-box">
+                    <span class="doi-label">DOI</span>
+                    <a href="https://doi.org/10.64898/2026.06.17.732869" class="doi-link" target="_blank" rel="noopener">10.64898/2026.06.17.732869</a>
+                </div>
+                <div class="card-actions">
+                    <a href="https://doi.org/10.64898/2026.06.17.732869" class="btn btn-primary" target="_blank" rel="noopener">View Preprint</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="supported-by fade-in">
+            <div class="supported-by-label">Supported by</div>
+            <div class="supported-by-logos">
+                <img src="Logos/LOGO-ERC.webp" alt="ERC" loading="lazy" />
+                <img src="Logos/Miverva%20center%20for%20mixed%20realities%20logo.webp" alt="Minerva Center for Mixed Realities" loading="lazy" />
+                <img src="Logos/mpg_logo_final_minerva_stiftung_rgb_mpg-green.webp" alt="Minerva Stiftung (MPG)" loading="lazy" />
+                <img src="Logos/samueli.svg" alt="Samueli" loading="lazy" />
+                <img src="Logos/the-neuro-mni-tanenbaum-osi.webp" alt="The Neuro — Montreal Neurological Institute-Hospital, Tanenbaum Open Science Institute" loading="lazy" />
+            </div>
+        </section>
+    </main>
+
     <footer>
-      <p class="muted">© ResXR • <span id="y"></span></p>
+        <p class="muted">© <span id="year"></span> ResXR Toolkit · Released under the <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache License 2.0</a></p>
     </footer>
-  </div>
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in, .slide-up').forEach((el) => {
+            observer.observe(el);
+        });
+        
+        // Trigger initial check
+        setTimeout(() => {
+            document.querySelectorAll('.slide-up').forEach(el => el.classList.add('visible'));
+        }, 100);
+    </script>
 </body>
 </html>
